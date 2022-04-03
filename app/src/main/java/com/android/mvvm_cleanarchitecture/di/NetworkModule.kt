@@ -1,6 +1,9 @@
 package com.android.mvvm_cleanarchitecture.di
 
-import com.android.mvvm_cleanarchitecture.network.IWebService
+import com.android.mvvm_cleanarchitecture.contract.IWebService
+import com.android.mvvm_cleanarchitecture.domain.TopArtistUseCase
+import com.android.mvvm_cleanarchitecture.network.ApiService
+import com.android.mvvm_cleanarchitecture.network.RetrofitService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,46 +18,52 @@ import java.util.concurrent.TimeUnit
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Provides
-    fun providesBaseUrl():String  {
-        return "";
-    }
 
+    /**
+     * Provides [HttpLoggingInterceptor] instance with logging level set to body
+     */
     @Provides
     fun provideLoggingInterceptor() = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+    /**
+     * Provides an [OkHttpClient]
+     * @param loggingInterceptor [HttpLoggingInterceptor] instance
+     */
     @Provides
     fun provideOKHttpClient(loggingInterceptor: HttpLoggingInterceptor) = OkHttpClient().apply {
         OkHttpClient.Builder().run {
-            callTimeout(40,TimeUnit.SECONDS)
-            connectTimeout(40,TimeUnit.SECONDS)
-            readTimeout(40,TimeUnit.SECONDS)
-            writeTimeout(40,TimeUnit.SECONDS)
+            callTimeout(40, TimeUnit.SECONDS)
+            connectTimeout(40, TimeUnit.SECONDS)
+            readTimeout(40, TimeUnit.SECONDS)
+            writeTimeout(40, TimeUnit.SECONDS)
             addInterceptor(loggingInterceptor)
             build()
         }
     }
 
-
+    /**
+     * Returns a [MoshiConverterFactory] instance
+     */
     @Provides
     fun provideMoshiConverterFactory(): MoshiConverterFactory = MoshiConverterFactory.create()
 
-
+    /**
+     * Returns an instance of the [ApiService] interface for the retrofit class
+     */
     @Provides
-    fun provideRetrofitClient(okHttpClient: OkHttpClient, baseUrl: String, moshiConverterFactory: MoshiConverterFactory): Retrofit {
-        return Retrofit.Builder()
+    fun provideRetrofitClient(
+        okHttpClient: OkHttpClient,
+        baseUrl: String,
+        moshiConverterFactory: MoshiConverterFactory,
+    ): ApiService =
+        Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
-            .build()
-    }
-
-    @Provides
-    fun provideRestApiService(retrofit: Retrofit): IWebService {
-        return retrofit.create(IWebService::class.java)
-    }
-
+            .build().run {
+                create(ApiService::class.java)
+            }
 
 }
