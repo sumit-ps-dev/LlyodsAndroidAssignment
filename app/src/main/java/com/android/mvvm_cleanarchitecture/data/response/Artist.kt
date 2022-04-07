@@ -8,8 +8,9 @@ data class Artist(
     @Json(name = "playcount")
     val playcount: String?,
     @Json(name = "listeners")
-    val listeners: String,
+    val listeners: String?,
     @Json(name = "url")
-    val url: String?
-
+    val url: String?,
+    @Json(name = "image")
+    val image: List<Image>
     )

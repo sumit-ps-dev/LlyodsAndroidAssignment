@@ -1,7 +1,7 @@
 package com.android.mvvm_cleanarchitecture.network
 
-import com.android.mvvm_cleanarchitecture.ApiResult
 import com.android.mvvm_cleanarchitecture.contract.IWebService
+import com.android.mvvm_cleanarchitecture.data.ApiResult
 import com.android.mvvm_cleanarchitecture.data.response.ArtistsResponse
 import com.android.mvvm_cleanarchitecture.performNetworkApiCall
 import kotlinx.coroutines.flow.Flow

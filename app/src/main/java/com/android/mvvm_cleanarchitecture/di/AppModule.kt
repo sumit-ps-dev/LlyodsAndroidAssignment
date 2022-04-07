@@ -1,6 +1,7 @@
 package com.android.mvvm_cleanarchitecture.di
 
 import com.android.mvvm_cleanarchitecture.contract.IWebService
+import com.android.mvvm_cleanarchitecture.domain.TopArtistRepository
 import com.android.mvvm_cleanarchitecture.domain.TopArtistUseCase
 import com.android.mvvm_cleanarchitecture.network.ApiService
 import com.android.mvvm_cleanarchitecture.network.RetrofitService
@@ -13,11 +14,6 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
-    @Provides
-    fun providesBaseUrl(): String {
-        return "https://ws.audioscrobbler.com/";
-    }
-
     /**
      * Returns a [IWebService] impl -> RetrofitService
      */
@@ -26,10 +22,17 @@ class AppModule {
         RetrofitService(retrofit)
 
     /**
+     * Returns a [TopArtistRepository] instance
+     */
+    @Provides
+    fun provideTopArtistRepository(webService: IWebService): TopArtistRepository =
+        TopArtistRepository(webService)
+
+    /**
      * Returns a [TopArtistUseCase] instance
      */
     @Provides
-    fun provideTopArtistUseCase(webService: IWebService): TopArtistUseCase =
-        TopArtistUseCase(webService)
+    fun provideTopArtistUseCase(repository: TopArtistRepository): TopArtistUseCase =
+        TopArtistUseCase(repository)
 
 }

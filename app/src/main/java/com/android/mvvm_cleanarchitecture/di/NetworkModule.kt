@@ -1,5 +1,6 @@
 package com.android.mvvm_cleanarchitecture.di
 
+import com.android.mvvm_cleanarchitecture.BuildConfig
 import com.android.mvvm_cleanarchitecture.contract.IWebService
 import com.android.mvvm_cleanarchitecture.domain.TopArtistUseCase
 import com.android.mvvm_cleanarchitecture.network.ApiService
@@ -33,7 +34,7 @@ object NetworkModule {
      */
     @Provides
     fun provideOKHttpClient(loggingInterceptor: HttpLoggingInterceptor) = OkHttpClient().apply {
-        OkHttpClient.Builder().run {
+        OkHttpClient.Builder().apply {
             callTimeout(40, TimeUnit.SECONDS)
             connectTimeout(40, TimeUnit.SECONDS)
             readTimeout(40, TimeUnit.SECONDS)
@@ -55,11 +56,10 @@ object NetworkModule {
     @Provides
     fun provideRetrofitClient(
         okHttpClient: OkHttpClient,
-        baseUrl: String,
         moshiConverterFactory: MoshiConverterFactory,
     ): ApiService =
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build().run {
