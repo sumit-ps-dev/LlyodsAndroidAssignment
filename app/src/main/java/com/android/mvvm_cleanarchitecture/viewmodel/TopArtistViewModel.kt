@@ -3,7 +3,6 @@ package com.android.mvvm_cleanarchitecture.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.mvvm_cleanarchitecture.ViewState
 import com.android.mvvm_cleanarchitecture.data.response.Artist
 import com.android.mvvm_cleanarchitecture.domain.TopArtistUseCase
 import com.android.mvvm_cleanarchitecture.getViewStateFlowForNetworkCall
@@ -21,20 +20,29 @@ class TopArtistViewModel @Inject constructor(
         MutableLiveData<ViewState<List<Artist>>>()
     }
 
+
     fun fetchTopArists() {
         viewModelScope.launch {
             getViewStateFlowForNetworkCall {
                 useCase.execute(30)
             }.collect {
                 when (it) {
-                    is ViewState.Loading -> artistLiveData.value = it
-                    is ViewState.Failure -> artistLiveData.value = it
-                    is ViewState.Success -> it.output.artists?.artist?.let { artists ->
-                        artistLiveData.value = ViewState.Success(artists)
+                    is ViewState.Loading -> {
+                        artistLiveData.value = it
+                    }
+                    is ViewState.Failure ->{
+                        artistLiveData.value = it
+                    }
+                    is ViewState.Success ->{
+                        it.output.artists.artist.let { artists ->
+                            artistLiveData.value = ViewState.Success(artists)
+                        }
                     }
                 }
             }
         }
     }
+
+
 
 }

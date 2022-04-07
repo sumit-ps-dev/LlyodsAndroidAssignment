@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">mvvm-cleanarchitecture</string>
+    <string name="top_artist">Top Artist</string>
+    <string name="txt_playcount">Playcount : %1$s</string>
+    <string name="txt_listner">Listners : %1$s</string>
+    <string name="txt_website">Website : %1$s</string>
+
 </resources>

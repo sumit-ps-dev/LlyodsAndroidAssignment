@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/background_gradient.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.137" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2427536231884058" />
+        <entry key="app/src/main/res/layout/custom_progress_dialog.xml" value="0.2418478260869565" />
+        <entry key="app/src/main/res/layout/fragment_artist_detail.xml" value="0.12447916666666667" />
+        <entry key="app/src/main/res/layout/fragment_top_artist.xml" value="0.2427536231884058" />
+        <entry key="app/src/main/res/layout/item_artist.xml" value="0.2427536231884058" />
       </map>
     </option>
   </component>
@@ -12,5 +18,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.2427536231884058" />
+      </ProjectState>
+    </option>
   </component>
 </project>
