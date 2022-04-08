@@ -25,7 +25,7 @@ When user tap on any list item, currently opening a detail view of the artist in
 
 
 # Build Info
-Android Studio - 3.1.3, Compile SDK - 32, MinSDK - 21, Target - 32
+Android Studio - Bumblebee, Compile SDK - 32, MinSDK - 21, Target - 32
 
 # Libraries Used
 Android Support Libraries, Hilt, Retrofit, RecyclerView, CardView, LiveData, Coroutines, Moshi,Mockk.
