@@ -27,12 +27,8 @@ class TopArtistViewModel @Inject constructor(
                 useCase.execute(30)
             }.collect {
                 when (it) {
-                    is ViewState.Loading -> {
-                        artistLiveData.value = it
-                    }
-                    is ViewState.Failure ->{
-                        artistLiveData.value = it
-                    }
+                    is ViewState.Loading -> artistLiveData.value = it
+                    is ViewState.Failure -> artistLiveData.value = it
                     is ViewState.Success ->{
                         it.output.artists.artist.let { artists ->
                             artistLiveData.value = ViewState.Success(artists)

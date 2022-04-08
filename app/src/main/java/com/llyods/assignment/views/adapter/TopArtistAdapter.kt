@@ -33,6 +33,7 @@ class TopArtistAdapter(
             val imageUrl = artist.image.filter {
                 it.size == "large"
             }.single().text
+
             binding.imgArtist.loadImageOrDefault(imageUrl)
             binding.txtName.text = artist.name
             binding.txtPlaycount.text =
