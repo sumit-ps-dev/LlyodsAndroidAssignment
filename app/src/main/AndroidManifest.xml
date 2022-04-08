@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.mvvm_cleanarchitecture">
+    package="com.llyods.assignment">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
@@ -9,10 +9,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".MyApplication"
+        android:name="com.llyods.assignment.MyApplication"
         android:theme="@style/Theme.Mvvmcleanarchitecture">
         <activity
-            android:name=".views.activities.MainActivity"
+            android:name="com.llyods.assignment.views.activities.MainActivity"
             android:exported="true"
             android:label="@string/top_artist">
             <intent-filter>
