@@ -20,7 +20,7 @@ suspend fun <T : Any> performNetworkApiCall(
     allowRetries: Boolean = true,
     numberOfRetries: Int = 2,
     networkApiCall: NetworkAPIInvoke<T>,
-): kotlinx.coroutines.flow.Flow<ApiResult<T>> {
+): Flow<ApiResult<T>> {
     var delayDuration = 1000L
     val delayFactor = 2
     return flow {

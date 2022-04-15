@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.llyods.assignment.R
 import com.llyods.assignment.databinding.ItemArtistBinding
-import com.llyods.assignment.domain.model.Artist
+import com.llyods.assignment.domain.model.TopArtist
 import com.llyods.assignment.loadImageOrDefault
 import kotlin.properties.Delegates
 
@@ -16,10 +16,10 @@ import kotlin.properties.Delegates
 typealias ItemClickListener<T> = (T) -> Unit
 
 class TopArtistAdapter(
-    private val listner: ItemClickListener<Artist>,
+    private val listner: ItemClickListener<TopArtist>,
 ) : RecyclerView.Adapter<TopArtistAdapter.ArtistViewHolder>() {
 
-    var itemList: List<Artist> by Delegates.observable(emptyList()) { _, _, _ ->
+    var itemList: List<TopArtist> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()
     }
 
@@ -29,22 +29,22 @@ class TopArtistAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(artist: Artist) {
-            val imageUrl = artist.image.filter {
+        fun bind(topArtist: TopArtist) {
+            val imageUrl = topArtist.image.filter {
                 it.size == "large"
             }.single().text
 
             binding.imgArtist.loadImageOrDefault(imageUrl)
-            binding.txtName.text = artist.name
+            binding.txtName.text = topArtist.name
             binding.txtPlaycount.text =
-                artist.playcount?.let {
+                topArtist.playcount?.let {
                     String.format(context.getString(R.string.txt_playcount),
                         it)
                 }
-            binding.txtListeners.text = artist.listeners?.let {
+            binding.txtListeners.text = topArtist.listeners?.let {
                 String.format(context.getString(R.string.txt_listner), it)
             }
-            binding.txtWebsite.text = artist.url?.let {
+            binding.txtWebsite.text = topArtist.url?.let {
                 String.format(context.getString(R.string.txt_website), it)
             }
         }

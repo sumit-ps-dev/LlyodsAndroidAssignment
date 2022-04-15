@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.llyods.assignment.domain.model.Artist
+import com.llyods.assignment.domain.model.TopArtist
 import com.llyods.assignment.domain.usecase.TopArtistUseCase
 import com.llyods.assignment.getViewStateFlowForNetworkCall
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +17,11 @@ class TopArtistViewModel @Inject constructor(
     private val useCase: TopArtistUseCase,
 ) : ViewModel() {
 
-    private val _artistLiveData: MutableLiveData<ViewState<List<Artist>>> by lazy {
-        MutableLiveData<ViewState<List<Artist>>>()
+    private val _Top_artistLiveData: MutableLiveData<ViewState<List<TopArtist>>> by lazy {
+        MutableLiveData<ViewState<List<TopArtist>>>()
     }
 
-    val artistLiveData: LiveData<ViewState<List<Artist>>> = _artistLiveData
+    val topArtistLiveData: LiveData<ViewState<List<TopArtist>>> = _Top_artistLiveData
 
 
     fun fetchTopArists() {
@@ -30,11 +30,11 @@ class TopArtistViewModel @Inject constructor(
                 useCase.execute(30)
             }.collect {
                 when (it) {
-                    is ViewState.Loading -> _artistLiveData.value = it
-                    is ViewState.Failure -> _artistLiveData.value = it
+                    is ViewState.Loading -> _Top_artistLiveData.value = it
+                    is ViewState.Failure -> _Top_artistLiveData.value = it
                     is ViewState.Success -> {
                         it.output.let { artists ->
-                            _artistLiveData.value = ViewState.Success(artists)
+                            _Top_artistLiveData.value = ViewState.Success(artists)
                         }
                     }
                 }

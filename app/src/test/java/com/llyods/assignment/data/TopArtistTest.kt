@@ -6,7 +6,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class ArtistTest {
+class TopArtistTest {
 
     @Test
     fun `validate Artist from Json string`() {

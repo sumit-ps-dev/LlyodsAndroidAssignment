@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.llyods.assignment.R
 import com.llyods.assignment.databinding.FragmentTopArtistBinding
-import com.llyods.assignment.domain.model.Artist
+import com.llyods.assignment.domain.model.TopArtist
 import com.llyods.assignment.showToast
 import com.llyods.assignment.utility.ItemSpaceDecoration
 import com.llyods.assignment.presentation.viewmodel.TopArtistViewModel
@@ -25,7 +25,7 @@ class TopArtistFragment : Fragment() {
     private lateinit var binding: FragmentTopArtistBinding
     private val viewModel: TopArtistViewModel by viewModels()
 
-    private val artistItemClickListener: ItemClickListener<Artist> = { artist ->
+    private val topArtistItemClickListener: ItemClickListener<TopArtist> = { artist ->
         findNavController().navigate(
             R.id.action_topArtistFragment_to_artistDetailFragment,
             Bundle().apply {
@@ -47,7 +47,7 @@ class TopArtistFragment : Fragment() {
 
         binding.rvArtists.addItemDecoration(ItemSpaceDecoration(
             resources.getDimension(R.dimen.default_padding).toInt()))
-        viewModel.artistLiveData.observe(viewLifecycleOwner, Observer { viewState ->
+        viewModel.topArtistLiveData.observe(viewLifecycleOwner, Observer { viewState ->
 
             when (viewState) {
                 is ViewState.Loading -> {
@@ -64,7 +64,7 @@ class TopArtistFragment : Fragment() {
                     val data = viewState.output
 
                     if (binding.rvArtists.adapter == null) {
-                        binding.rvArtists.adapter = TopArtistAdapter(artistItemClickListener)
+                        binding.rvArtists.adapter = TopArtistAdapter(topArtistItemClickListener)
                     }
 
                     (binding.rvArtists.adapter as TopArtistAdapter).itemList = data

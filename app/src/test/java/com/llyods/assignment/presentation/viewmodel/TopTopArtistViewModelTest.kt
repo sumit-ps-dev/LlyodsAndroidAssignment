@@ -4,9 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.llyods.assignment.TestCoroutineRule
 import com.llyods.assignment.data.response.ApiResult
-import com.llyods.assignment.data.response.ArtistsResponse
-import com.llyods.assignment.data.response.Image
-import com.llyods.assignment.domain.model.Artist
+import com.llyods.assignment.domain.model.TopArtist
 import com.llyods.assignment.domain.usecase.TopArtistUseCase
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
@@ -18,7 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class TopArtistViewModelTest {
+class TopTopArtistViewModelTest {
 
     // Set the main coroutines dispatcher for unit testing.
     @get:Rule
@@ -29,10 +27,10 @@ class TopArtistViewModelTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @RelaxedMockK
-    private lateinit var mockArtistList: List<Artist>
+    private lateinit var mockTopArtistList: List<TopArtist>
 
     @RelaxedMockK
-    private lateinit var viewStateObserver: Observer<ViewState<List<Artist>>>
+    private lateinit var viewStateObserver: Observer<ViewState<List<TopArtist>>>
 
     @RelaxedMockK
     private lateinit var mockException: Exception
@@ -41,7 +39,7 @@ class TopArtistViewModelTest {
     private lateinit var mockUseCase: TopArtistUseCase
 
     private val fakeSuccessFlow = flow {
-        emit(ApiResult.OnSuccess(mockArtistList))
+        emit(ApiResult.OnSuccess(mockTopArtistList))
     }
 
     private val fakeFailureFlow = flow {
@@ -61,15 +59,15 @@ class TopArtistViewModelTest {
     @Test
     fun `fetch top artist from network`(){
          runBlockingTest {
-             val artistList: ArrayList<Artist> = mockk()
+             val topArtistList: ArrayList<TopArtist> = mockk()
              coEvery { mockUseCase.execute(30) } returns fakeSuccessFlow
 
-             viewModel.artistLiveData.observeForever(viewStateObserver)
+             viewModel.topArtistLiveData.observeForever(viewStateObserver)
              viewModel.fetchTopArists()
 
              verifyOrder {
                  viewStateObserver.onChanged(ViewState.Loading(true))
-                 viewStateObserver.onChanged(ViewState.Success(artistList))
+                 viewStateObserver.onChanged(ViewState.Success(topArtistList))
                  viewStateObserver.onChanged(ViewState.Loading(false))
              }
          }
@@ -82,7 +80,7 @@ class TopArtistViewModelTest {
         runBlockingTest {
             coEvery { mockUseCase.execute(30) } returns fakeFailureFlow
 
-            viewModel.artistLiveData.observeForever(viewStateObserver)
+            viewModel.topArtistLiveData.observeForever(viewStateObserver)
             viewModel.fetchTopArists()
 
             verifyOrder {
