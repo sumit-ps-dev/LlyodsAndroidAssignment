@@ -1,16 +1,14 @@
 # Llyods Android Assignment
 
-This is a simple Kotlin MVVM-clean-architecture demonstration.Following technologies are used to
-build this assignment
+This is a simple Kotlin MVVM-clean-architecture demonstration.To build this project I have used
+below standard libaries of Android
 
-1. Kotlin
-2. MVVM architecture
-3. Retrofit 2 by Square
-4. Moshi Json Converter
-5. Hilt
-6. Coroutines
-7. Mockk for Unit testing.
-8. Kotlin Extension
+1. Retrofit 2 by Square for Networking
+2. Moshi Json Converter
+3. Hilt Dependency Injection
+4. Coroutines
+5. Mockk for Unit testing.
+6. Glide Image Loading
 
 
 # Architecture flow
@@ -26,6 +24,3 @@ When user tap on any list item, currently opening a detail view of the artist in
 
 # Build Info
 Android Studio - Bumblebee, Compile SDK - 32, MinSDK - 21, Target - 32
-
-# Libraries Used
-Android Support Libraries, Hilt, Retrofit, RecyclerView, CardView, LiveData, Coroutines, Moshi,Mockk.

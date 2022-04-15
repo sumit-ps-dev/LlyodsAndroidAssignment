@@ -1,7 +1,8 @@
 package com.llyods.assignment
 
-import com.llyods.assignment.data.ApiResult
-import com.llyods.assignment.viewmodel.ViewState
+import com.llyods.assignment.data.mapper.ArtistMapper.toTopArtist
+import com.llyods.assignment.data.response.ApiResult
+import com.llyods.assignment.presentation.viewmodel.ViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -67,5 +68,7 @@ suspend fun <T : Any> getViewStateFlowForNetworkCall(ioOperation: suspend () -> 
         }
         emit(ViewState.Loading(false))
     }.flowOn(Dispatchers.IO)
+
+
 
 

@@ -1,7 +1,9 @@
 package com.llyods.assignment.di
 
 import com.llyods.assignment.BuildConfig
-import com.llyods.assignment.network.ApiService
+import com.llyods.assignment.data.network.ApiService
+import com.llyods.assignment.data.network.IWebService
+import com.llyods.assignment.data.network.RetrofitService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -62,5 +64,12 @@ object NetworkModule {
             .build().run {
                 create(ApiService::class.java)
             }
+
+    /**
+     * Returns a [IWebService] impl -> RetrofitService
+     */
+    @Provides
+    fun provideRetrofitService(retrofit: ApiService): IWebService =
+        RetrofitService(retrofit)
 
 }

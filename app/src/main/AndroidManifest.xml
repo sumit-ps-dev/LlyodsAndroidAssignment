@@ -12,7 +12,7 @@
         android:name="com.llyods.assignment.MyApplication"
         android:theme="@style/Theme.Mvvmcleanarchitecture">
         <activity
-            android:name="com.llyods.assignment.views.activities.MainActivity"
+            android:name="com.llyods.assignment.presentation.views.activities.MainActivity"
             android:exported="true"
             android:label="@string/top_artist">
             <intent-filter>

@@ -17,7 +17,7 @@ class ArtistTest {
 
         assertEquals("The Weeknd", artist?.name)
         assertEquals("276052310", artist?.playcount)
-        assertEquals("2502866", artist?.listeners)
+            assertEquals("2502866", artist?.listeners)
         assertEquals("https://www.last.fm/music/The+Weeknd", artist?.url)
         assertEquals(5,artist?.image?.count())
     }

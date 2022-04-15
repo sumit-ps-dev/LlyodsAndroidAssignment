@@ -1,5 +1,6 @@
 package com.llyods.assignment.data
 
+import com.llyods.assignment.data.response.ApiResult
 import com.llyods.assignment.data.response.Artist
 import io.mockk.mockk
 import org.junit.Test
