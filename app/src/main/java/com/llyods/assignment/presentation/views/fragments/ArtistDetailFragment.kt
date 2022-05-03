@@ -10,8 +10,8 @@ import android.webkit.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.llyods.assignment.databinding.FragmentArtistDetailBinding
+import com.llyods.assignment.utility.Constant
 
-const val ARTIST_URL = "artist_url"
 
 class ArtistDetailFragment : Fragment() {
     private val TAG = ArtistDetailFragment::class.java.canonicalName
@@ -28,13 +28,15 @@ class ArtistDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.webview.settings.javaScriptEnabled = true
-        binding.webview.webViewClient = MyWebViewClient()
+        with(binding){
+            webview.settings.javaScriptEnabled = true
+            webview.webViewClient = MyWebViewClient()
 
-        arguments?.getString(ARTIST_URL)?.let {
-            binding.webview.loadUrl(it)
-        }?: run {
-            Log.e(TAG,"Failed to load Webview")
+            arguments?.getString(Constant.ARTIST_URL)?.let {
+                webview.loadUrl(it)
+            }?: run {
+                Log.e(TAG,"Failed to load Webview")
+            }
         }
 
     }

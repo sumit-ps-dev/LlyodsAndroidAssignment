@@ -8,6 +8,7 @@ import com.llyods.assignment.R
 import com.llyods.assignment.databinding.ItemArtistBinding
 import com.llyods.assignment.domain.model.TopArtist
 import com.llyods.assignment.loadImageOrDefault
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
 /**
@@ -15,9 +16,14 @@ import kotlin.properties.Delegates
  */
 typealias ItemClickListener<T> = (T) -> Unit
 
-class TopArtistAdapter(
-    private val listner: ItemClickListener<TopArtist>,
-) : RecyclerView.Adapter<TopArtistAdapter.ArtistViewHolder>() {
+class TopArtistAdapter @Inject constructor()
+    : RecyclerView.Adapter<TopArtistAdapter.ArtistViewHolder>() {
+
+    lateinit var listner: ItemClickListener<TopArtist>
+
+//    fun setItemClickListner(listner: ItemClickListener<TopArtist>){
+//        this.listner = listner
+//    }
 
     var itemList: List<TopArtist> by Delegates.observable(emptyList()) { _, _, _ ->
         notifyDataSetChanged()

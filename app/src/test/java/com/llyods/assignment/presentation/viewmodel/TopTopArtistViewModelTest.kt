@@ -60,9 +60,9 @@ class TopTopArtistViewModelTest {
     fun `fetch top artist from network`(){
          runBlockingTest {
              val topArtistList: ArrayList<TopArtist> = mockk()
-             coEvery { mockUseCase.execute(30) } returns fakeSuccessFlow
+             coEvery { mockUseCase(30) } returns fakeSuccessFlow
 
-             viewModel.topArtistLiveData.observeForever(viewStateObserver)
+//             viewModel.getTopArtists().observeForever(viewStateObserver)
              viewModel.fetchTopArists()
 
              verifyOrder {
@@ -78,9 +78,9 @@ class TopTopArtistViewModelTest {
     fun `failed to fetch artist from network`(){
 
         runBlockingTest {
-            coEvery { mockUseCase.execute(30) } returns fakeFailureFlow
+            coEvery { mockUseCase(30) } returns fakeFailureFlow
 
-            viewModel.topArtistLiveData.observeForever(viewStateObserver)
+//            viewModel.topArtistLiveData.observeForever(viewStateObserver)
             viewModel.fetchTopArists()
 
             verifyOrder {

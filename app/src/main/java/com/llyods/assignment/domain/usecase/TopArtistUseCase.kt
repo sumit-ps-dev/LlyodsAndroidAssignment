@@ -9,18 +9,18 @@ import com.llyods.assignment.domain.model.TopArtist
 import com.llyods.assignment.domain.repository.IRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class TopArtistUseCase @Inject constructor(
     override val repository: IRepository,
 ) : IUseCase<Int, List<TopArtist>> {
 
-    override suspend fun execute(input: Int): Flow<ApiResult<List<TopArtist>>> =
-        transformModel {
-            repository.getArtists(input)
-        }
+    override suspend fun invoke(input: Int): Flow<ApiResult<List<TopArtist>>> = transformModel {
+        repository.getArtists(input)
+    }
 
-    suspend fun transformModel(result: suspend () -> Flow<ApiResult<ArtistsResponse>>) =
+    suspend inline fun transformModel(crossinline result: suspend () -> Flow<ApiResult<ArtistsResponse>>) =
         flow {
             result().map { response ->
                 when (response) {
@@ -32,6 +32,8 @@ class TopArtistUseCase @Inject constructor(
             }
             return@flow
         }.flowOn(Dispatchers.Default)
+
+
 
 
 }

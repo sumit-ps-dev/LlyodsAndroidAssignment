@@ -9,5 +9,5 @@ interface IUseCase<in I : Any, out O : Any>  {
 
     val repository: IRepository
 
-    suspend fun execute(input: I): Flow<ApiResult<O>>
+    suspend operator fun invoke(input: I): Flow<ApiResult<O>>
 }
