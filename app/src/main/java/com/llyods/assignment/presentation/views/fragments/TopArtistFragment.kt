@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.llyods.assignment.R
 import com.llyods.assignment.databinding.FragmentTopArtistBinding
@@ -20,8 +20,6 @@ import com.llyods.assignment.utility.Constant
 import com.llyods.assignment.utility.EspressoIdlingResource
 import com.llyods.assignment.utility.ItemSpaceDecoration
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,8 +54,7 @@ class TopArtistFragment : Fragment() {
         with(binding){
             rvArtists.addItemDecoration(ItemSpaceDecoration(
                 resources.getDimension(R.dimen.default_padding).toInt()))
-            lifecycleScope.launchWhenStarted {
-                viewModel.getTopArtists().collect { viewState ->
+            viewModel.getTopArtists().observe(viewLifecycleOwner, Observer { viewState ->
                     when (viewState) {
                         is ViewState.Loading -> {
                             //Espresso Idling
@@ -83,8 +80,8 @@ class TopArtistFragment : Fragment() {
                             EspressoIdlingResource.decrement()
                         }
                     }
-                }
-            }
+
+            })
         }
         viewModel.fetchTopArists()
     }

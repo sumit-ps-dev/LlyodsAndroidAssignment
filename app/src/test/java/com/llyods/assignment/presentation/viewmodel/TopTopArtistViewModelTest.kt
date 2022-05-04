@@ -58,19 +58,19 @@ class TopTopArtistViewModelTest {
 
     @Test
     fun `fetch top artist from network`(){
-         runBlockingTest {
-             val topArtistList: ArrayList<TopArtist> = mockk()
-             coEvery { mockUseCase(30) } returns fakeSuccessFlow
+        runBlockingTest {
+            val topArtistList: ArrayList<TopArtist> = mockk()
+            coEvery { mockUseCase(30) } returns fakeSuccessFlow
 
-//             viewModel.getTopArtists().observeForever(viewStateObserver)
-             viewModel.fetchTopArists()
+            viewModel.getTopArtists().observeForever(viewStateObserver)
+            viewModel.fetchTopArists()
 
-             verifyOrder {
-                 viewStateObserver.onChanged(ViewState.Loading(true))
-                 viewStateObserver.onChanged(ViewState.Success(topArtistList))
-                 viewStateObserver.onChanged(ViewState.Loading(false))
-             }
-         }
+            verifyOrder {
+                viewStateObserver.onChanged(ViewState.Loading(true))
+                viewStateObserver.onChanged(ViewState.Success(topArtistList))
+                viewStateObserver.onChanged(ViewState.Loading(false))
+            }
+        }
 
     }
 
@@ -80,7 +80,7 @@ class TopTopArtistViewModelTest {
         runBlockingTest {
             coEvery { mockUseCase(30) } returns fakeFailureFlow
 
-//            viewModel.topArtistLiveData.observeForever(viewStateObserver)
+            viewModel.getTopArtists().observeForever(viewStateObserver)
             viewModel.fetchTopArists()
 
             verifyOrder {

@@ -1,5 +1,7 @@
 package com.llyods.assignment.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.llyods.assignment.domain.model.TopArtist
@@ -17,8 +19,12 @@ class TopArtistViewModel @Inject constructor(
     private val useCase: TopArtistUseCase,
 ) : ViewModel() {
 
-    private val _stateFlow =
-        MutableStateFlow<ViewState<List<TopArtist>>>(ViewState.Loading(true))
+//    private val _stateFlow =
+//        MutableStateFlow<ViewState<List<TopArtist>>>(ViewState.Loading(true))
+
+    private val _artistLiveData: MutableLiveData<ViewState<List<TopArtist>>> by lazy {
+        MutableLiveData<ViewState<List<TopArtist>>>()
+    }
 
 
     fun fetchTopArists() {
@@ -27,11 +33,11 @@ class TopArtistViewModel @Inject constructor(
                 useCase(30)
             }.collect {
                 when (it) {
-                    is ViewState.Loading -> _stateFlow.value = it
-                    is ViewState.Failure -> _stateFlow.value = it
+                    is ViewState.Loading -> _artistLiveData.value = it
+                    is ViewState.Failure -> _artistLiveData.value = it
                     is ViewState.Success -> {
                         it.output.let { artists ->
-                            _stateFlow.value = ViewState.Success(artists)
+                            _artistLiveData.value = ViewState.Success(artists)
                         }
                     }
                 }
@@ -39,7 +45,7 @@ class TopArtistViewModel @Inject constructor(
         }
     }
 
-    fun getTopArtists(): StateFlow<ViewState<List<TopArtist>>> = _stateFlow
+    fun getTopArtists(): LiveData<ViewState<List<TopArtist>>> = _artistLiveData
 
 
 
