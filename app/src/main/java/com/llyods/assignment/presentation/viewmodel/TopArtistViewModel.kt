@@ -8,8 +8,6 @@ import com.llyods.assignment.domain.model.TopArtist
 import com.llyods.assignment.domain.usecase.TopArtistUseCase
 import com.llyods.assignment.getViewStateFlowForNetworkCall
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,9 +16,6 @@ import javax.inject.Inject
 class TopArtistViewModel @Inject constructor(
     private val useCase: TopArtistUseCase,
 ) : ViewModel() {
-
-//    private val _stateFlow =
-//        MutableStateFlow<ViewState<List<TopArtist>>>(ViewState.Loading(true))
 
     private val _artistLiveData: MutableLiveData<ViewState<List<TopArtist>>> by lazy {
         MutableLiveData<ViewState<List<TopArtist>>>()
@@ -46,8 +41,5 @@ class TopArtistViewModel @Inject constructor(
     }
 
     fun getTopArtists(): LiveData<ViewState<List<TopArtist>>> = _artistLiveData
-
-
-
 
 }
